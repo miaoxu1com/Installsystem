@@ -1,0 +1,1 @@
+[Environment]::SetEnvironmentVariable('BetterCap', 'E:\网络\', 'Machine')
