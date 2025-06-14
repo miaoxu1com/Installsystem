@@ -1,0 +1,2 @@
+Bandizip bdzshl.x64.dll bdzshl.x86.dll
+IObitUnlocker.exe regsvr32 IObitUnlockerExtension.dll

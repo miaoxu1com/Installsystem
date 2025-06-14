@@ -1,0 +1,3 @@
+FileTypesMan.exe 软件修改扩展名关联的ico
+shexview 可以查看那个dll进行了注册 注册的CLSID是什么  能知道那个dll可以进行reg注册，方便绿色安装
+shmnview 右键菜单
