@@ -1,0 +1,8 @@
+# Rust 镜像源
+
+- [rsproxy.cn（字节跳动 Rust 镜像，含 rustup/crates 换源教程）](https://rsproxy.cn/#getStarted)
+- [cargo 换源教程](https://books.niqin.com/read/rust-guide/zh-cn/4-cargo/4.1-source-replacement.html)
+
+## 相关
+
+- Rust 安装指南类链接见 soft 仓库 [软件.md](https://github.com/miaoxu1com/soft/blob/main/软件.md) 的 Rust 环境安装一节

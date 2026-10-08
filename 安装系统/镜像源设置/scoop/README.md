@@ -108,9 +108,13 @@ X:\Scoop\config\scoop    # 安装目录下的 config\scoop
 ### SCOOP_REPO 备选镜像
 
 ```powershell
-# 除脚本默认的 gitee 镜像外，也可用 ghfast.top 反代官方仓库
-scoop config SCOOP_REPO https://ghfast.top/github.com/ScoopInstaller/Scoop
+# 除脚本默认的 gitee 镜像外，还有以下可选：
+scoop config SCOOP_REPO "https://gitee.com/scoop-installer/scoop"
+scoop config SCOOP_REPO "https://ghfast.top/github.com/ScoopInstaller/Scoop"
+scoop config SCOOP_REPO "https://ghproxy.net/https://github.com/ScoopInstaller/Scoop"
 ```
+
+> 注意：私有仓库无法通过镜像站下载 release（镜像只代理公开资源）。
 
 相关项目：[lzwme/scoop-proxy-cn](https://github.com/lzwme/scoop-proxy-cn)
 

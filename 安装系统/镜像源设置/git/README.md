@@ -2,7 +2,7 @@
 
 ## ghproxy 类加速站说明
 
-ghproxy 类加速站支持终端命令行 `git clone`、`wget`、`curl` 等工具下载，支持 `raw.githubusercontent.com`、`gist.github.com`、`gist.githubusercontent.com` 文件下载。**不支持 SSH Key 方式 git clone**。
+ghproxy 类加速站支持终端命令行 `git clone`、`wget`、`curl` 等工具下载，支持 `raw.githubusercontent.com`、`gist.github.com`、`gist.githubusercontent.com` 文件下载。**不支持 SSH Key 方式 git clone**。**私有仓库无法通过镜像站下载 release**（镜像只代理公开资源）。
 
 ## GitHub 加速站列表
 
