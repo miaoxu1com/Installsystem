@@ -10,6 +10,7 @@ ghproxy 类加速站支持终端命令行 `git clone`、`wget`、`curl` 等工�
 - [gitwarp.com](https://www.gitwarp.com)
 - [7ed.net/gitmirror](https://www.7ed.net/gitmirror/hub.html)
 - [proxy.pipers.cn](https://proxy.pipers.cn)
+- [github.akams.cn](https://github.akams.cn)
 
 ## git 全局 URL 替换（insteadOf）
 
@@ -32,6 +33,8 @@ git config --global --unset url.https://github.com/.insteadof
 ```
 
 > 注意：insteadOf 会影响**所有** git 拉取操作（包括 scoop bucket 同步），镜像站失效后会导致所有 git 操作报错，不建议长期使用。
+>
+> 对 scoop 的影响：**bucket 的添加/同步生效**（走的是 git），但 **scoop 下载软件安装包不走 git**（用的是内置 HTTP 下载器），所以 `scoop install` 的下载地址不受此配置影响。scoop 的下载加速要用 [scoop/README.md](../scoop/README.md) 里的 URL 替换方案。
 
 ## 相关
 

@@ -84,7 +84,7 @@ psc add scoop scoop-install scoop-update
 ## 已失效/受限方案（存档）
 
 - ❌ **scoop-cn bucket**（`scoop bucket add scoop-cn https://mirror.ghproxy.com/https://github.com/duzyn/scoop-cn`）：已停止更新，测试确认已失效
-- ⚠️ **git insteadOf 替换**（`git config --global url."https://gh.llkk.cc/https://github.com".insteadOf "https://github.com"`）：**git 操作会走**此配置（`git clone` / `git fetch`，包括 `scoop bucket add`、`scoop update` 时的 bucket 仓库同步都生效），但 **scoop 下载软件安装包不走 git**（用的是内置 HTTP 下载器），所以 `scoop install` 的下载地址不受此配置影响。它只能加速 bucket 同步，不能解决软件下载慢的问题。详细用法见 [git/README.md](../git/README.md)
+- ⚠️ **git insteadOf 替换**：对 scoop 只能加速 bucket 同步，`scoop install` 下载不受影响，详细说明和用法见 [git/README.md](../git/README.md)
 - ❌ **已失效镜像站**（存档勿用）：`github.com.cnpmjs.org`（阿里镜像）、`hub.fastgit.org`、`download.fastgit.org`、`github.91chifun.workers.dev`（Cloudflare Workers）
 
 ## 进阶配置
@@ -207,7 +207,6 @@ scoop bucket add apps https://gitee.com/kkzzhizhou/scoop-apps
 - [lzwme/scoop-proxy-cn](https://github.com/lzwme/scoop-proxy-cn) / [作者说明](https://lzw.me/a/scoop.html)
 - [gitee.com/scoop-installer 组织](https://gitee.com/scoop-installer?skip_mobile=true)
 - [gitee.com/xrgzs/scoop](https://gitee.com/xrgzs/scoop)
-- [github.akams.cn 加速服务](https://github.akams.cn)
 - [BBDXF/scoopex](https://github.com/BBDXF/scoopex?tab=readme-ov-file)
 
 ## 环境要求
