@@ -85,6 +85,119 @@ psc add scoop scoop-install scoop-update
 
 - ❌ **scoop-cn bucket**（`scoop bucket add scoop-cn https://mirror.ghproxy.com/https://github.com/duzyn/scoop-cn`）：已停止更新，测试确认已失效
 - ⚠️ **git insteadOf 替换**（`git config --global url."https://gh.llkk.cc/https://github.com".insteadOf "https://github.com"`）：**git 操作会走**此配置（`git clone` / `git fetch`，包括 `scoop bucket add`、`scoop update` 时的 bucket 仓库同步都生效），但 **scoop 下载软件安装包不走 git**（用的是内置 HTTP 下载器），所以 `scoop install` 的下载地址不受此配置影响。它只能加速 bucket 同步，不能解决软件下载慢的问题
+- ❌ **已失效镜像站**（存档勿用）：`github.com.cnpmjs.org`（阿里镜像）、`hub.fastgit.org`、`download.fastgit.org`、`github.91chifun.workers.dev`（Cloudflare Workers）
+
+## 进阶配置
+
+### HTTP 代理
+
+```powershell
+# 添加代理（根据实际填写 http 代理地址）
+scoop config proxy 127.0.0.1:4412
+
+# 删除代理
+scoop config rm proxy
+```
+
+### scoop config 配置文件位置
+
+```
+X:\Scoop\config\scoop    # 安装目录下的 config\scoop
+```
+
+### SCOOP_REPO 备选镜像
+
+```powershell
+# 除脚本默认的 gitee 镜像外，也可用 ghfast.top 反代官方仓库
+scoop config SCOOP_REPO https://ghfast.top/github.com/ScoopInstaller/Scoop
+```
+
+相关项目：[lzwme/scoop-proxy-cn](https://github.com/lzwme/scoop-proxy-cn)
+
+### 自建 url_proxy（仅 Gitee 修改版 scoop 支持）
+
+> 注意：只有 [Gitee 修改版 scoop](https://gitee.com/scoop-installer-mirrors) 才支持 `url_proxy` 配置，archive 分支和原版 scoop 设置无效。
+
+```powershell
+# 添加代理
+scoop config URL_PROXY "https://scoop.201704.xyz"
+
+# 删除代理
+scoop config rm URL_PROXY
+```
+
+可供设置的代理站：
+
+- [pd.zwc365.com](https://pd.zwc365.com)（文件大小限制 2G）
+- [pd.zwc365.com/cfworker](https://pd.zwc365.com/cfworker)（CloudFlare 加速，文件大小无限制）
+
+### spc bucket 使用细节
+
+```powershell
+# 添加 spc bucket
+scoop bucket add spc https://gitee.com/wlzwme/scoop-proxy-cn.git
+
+# 进入 spc 目录（默认安装路径；自定义安装目录时改成你的路径）
+cd "$env:USERPROFILE\scoop\buckets\spc"
+
+# 切换到 main 分支（该仓库默认分支不是 master，不切换会导致清单拉取异常）
+git fetch --all && git checkout -b main origin/main
+
+# 推荐安装基础工具
+scoop install spc/7zip spc/aria2 spc/scoop-search
+```
+
+### PSCompletions 与 argc-completions 结合
+
+参考 [官方 FAQ](https://pscompletions.abgox.com/zh-CN/faq/pscompletions-and-argc-completions)。
+
+使用 scoop 安装 argc-completions 后在 `$PROFILE` 中：
+
+```powershell
+$argc_scripts = $env:ARGC_COMPLETIONS_PATH -split [System.IO.Path]::PathSeparator | Get-ChildItem -File | ForEach-Object { $_.BaseName }
+$PSCompletions.argc_completions($argc_scripts)
+```
+
+不使用 scoop 安装（手动版，多三行环境变量初始化）：
+
+```powershell
+# argc-completions
+$env:ARGC_COMPLETIONS_ROOT = 'D:\argc-completions'
+$env:ARGC_COMPLETIONS_PATH = ($env:ARGC_COMPLETIONS_ROOT + '\completions\windows;' + $env:ARGC_COMPLETIONS_ROOT + '\completions')
+$env:PATH = $env:ARGC_COMPLETIONS_ROOT + '\bin' + [IO.Path]::PathSeparator + $env:PATH
+# 只给指定命令加补全可修改下一行，如 $argc_scripts = @("cargo", "git")
+$argc_scripts = $env:ARGC_COMPLETIONS_PATH -split [System.IO.Path]::PathSeparator | Get-ChildItem -File | ForEach-Object { $_.BaseName }
+$PSCompletions.argc_completions($argc_scripts)
+```
+
+PSReadLine 和 PSCompletions 同时生效的 `$PROFILE` 配置：
+
+```powershell
+Set-PSReadLineOption -PredictionViewStyle ListView
+Import-Module PSCompletions
+$argc_scripts = $env:ARGC_COMPLETIONS_PATH -split [System.IO.Path]::PathSeparator | Get-ChildItem -File | ForEach-Object { $_.BaseName }
+argc --argc-completions powershell $argc_scripts | Out-String | Invoke-Expression
+```
+
+### bucket 仓库地址变更后的迁移修复
+
+当 bucket 上游仓库地址变化时，`scoop list` 和 `scoop install` 会报错，需要把已安装 app 记录的仓库地址替换为新地址：
+
+```powershell
+# 1. 修改 bucket 仓库的 remote 地址（目录必须是 .git 仓库）
+git -C "E:\Tools\Scoop\buckets\main" remote set-url origin https://github.com.cnpmjs.org/ScoopInstaller/Main.git
+git -C "E:\Tools\Scoop\buckets\extras" remote set-url origin https://github.com.cnpmjs.org/lukesampson/scoop-extras.git
+
+# 2. PowerShell 批量替换已安装应用的 bucket 归属（示例：main -> spc）
+Get-ChildItem -Path "D:\Scoop\apps" -Recurse -Filter "install.json" | ForEach-Object { try { $jsonContent = Get-Content $_.FullName -Raw | ConvertFrom-Json; if ($jsonContent.bucket -eq "main") { $jsonContent.bucket = "spc"; $jsonContent | ConvertTo-Json -Depth 10 | Set-Content $_.FullName -NoNewline; Write-Host "✓ 已更新: $($_.FullName)" -ForegroundColor Green } } catch { Write-Host "✗ JSON 解析失败: $($_.FullName) - $($_.Exception.Message)" -ForegroundColor Red } }
+```
+
+### apps bucket（更多软件清单）
+
+```powershell
+scoop bucket rm apps
+scoop bucket add apps https://gitee.com/kkzzhizhou/scoop-apps
+```
 
 ## 参考链接
 
