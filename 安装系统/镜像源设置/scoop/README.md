@@ -81,10 +81,10 @@ Import-Module PSCompletions
 psc add scoop scoop-install scoop-update
 ```
 
-## 已失效/无效方案（存档，勿用）
+## 已失效/受限方案（存档）
 
 - ❌ **scoop-cn bucket**（`scoop bucket add scoop-cn https://mirror.ghproxy.com/https://github.com/duzyn/scoop-cn`）：已停止更新，测试确认已失效
-- ❌ **git insteadOf 替换**（`git config --global url."https://gh.llkk.cc/https://github.com".insteadOf "https://github.com"`）：测试确认 `scoop install` **不会**走 git config 的 URL 替换配置，此方案对 scoop 无效
+- ⚠️ **git insteadOf 替换**（`git config --global url."https://gh.llkk.cc/https://github.com".insteadOf "https://github.com"`）：**git 操作会走**此配置（`git clone` / `git fetch`，包括 `scoop bucket add`、`scoop update` 时的 bucket 仓库同步都生效），但 **scoop 下载软件安装包不走 git**（用的是内置 HTTP 下载器），所以 `scoop install` 的下载地址不受此配置影响。它只能加速 bucket 同步，不能解决软件下载慢的问题
 
 ## 参考链接
 
