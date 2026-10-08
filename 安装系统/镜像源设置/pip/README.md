@@ -16,3 +16,7 @@ pip config unset global.index-url
 ## 相关
 
 - uv 的 Python 下载镜像见本目录 [uv/README.md](../uv/README.md)
+
+## 脚本
+
+- [python_pypi_mirror.bat](python_pypi_mirror.bat)：chsrc 一键切 pip 到清华源

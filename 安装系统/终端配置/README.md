@@ -8,6 +8,7 @@
 | [powershell.config.json](powershell.config.json) | PowerShell 全局配置 |
 | [PSFzf用法.md](PSFzf用法.md) | PSFzf 快捷键与用法 |
 | [配色.md](配色.md) | 日志级别配色 RGB 值 |
+| [Install-PowerShellModules.ps1](Install-PowerShellModules.ps1) | 批量安装常用 PowerShell 模块（PSReadLine/PSFzf/PSCompletions 等） |
 
 ## Maple Mono 字体注意事项
 

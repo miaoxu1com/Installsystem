@@ -43,3 +43,7 @@ git config --global --unset url.https://github.com/.insteadof
 
 - scoop 场景下的 URL 替换方案见本仓库 [scoop/README.md](../scoop/README.md)
 - winget 下载加速见本仓库 [winget/README.md](../winget/README.md)
+
+## 脚本
+
+- [git_config.bat](git_config.bat)：一键配置 insteadOf 全局替换（谨慎，见上文注意事项）

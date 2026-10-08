@@ -20,3 +20,7 @@ $env:UV_PYTHON_INSTALL_MIRROR = "https://mirror.ghproxy.com/https://github.com/i
 ## 相关
 
 - 通用 GitHub 加速站列表见本目录 [git/README.md](../git/README.md)
+
+## 脚本
+
+- [python_uv_mirror.bat](python_uv_mirror.bat)：一键写入 UV_PYTHON_INSTALL_MIRROR / UV_DEFAULT_INDEX（USTC）等环境变量
