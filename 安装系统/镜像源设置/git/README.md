@@ -11,6 +11,9 @@ ghproxy 类加速站支持终端命令行 `git clone`、`wget`、`curl` 等工�
 - [7ed.net/gitmirror](https://www.7ed.net/gitmirror/hub.html)
 - [proxy.pipers.cn](https://proxy.pipers.cn)
 - [github.akams.cn](https://github.akams.cn)
+- [gh.xmly.dev](https://gh.xmly.dev)
+- [gh.jasonzeng.dev](https://gh.jasonzeng.dev)
+- [doget.nocsdn.com](https://doget.nocsdn.com/#/)
 
 ## git 全局 URL 替换（insteadOf）
 

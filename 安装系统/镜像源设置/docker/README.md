@@ -1,12 +1,5 @@
 # Docker 国内镜像配置
 
-## apt 镜像源（Ubuntu）
-
-```bash
-# sudo add-apt-repository --remove "deb http://archive.ubuntu.com/ubuntu jammy InRelease"
-sudo add-apt-repository "deb http://mirrors.ustc.edu.cn/ubuntu jammy main"
-```
-
 ## 安装 Docker（中科大镜像）
 
 参考 [USTC Docker CE 帮助](https://mirrors.ustc.edu.cn/help/docker-ce.html)，一起复制下面两行命令：
@@ -36,3 +29,7 @@ docker pull 镜像名称 --registry-mirror=国内镜像源地址
 ```
 
 测试可用后可写入 daemon.json 永久生效。
+
+## 相关
+
+- apt 镜像源（Ubuntu/Debian）见本目录 [apt/README.md](../apt/README.md)
