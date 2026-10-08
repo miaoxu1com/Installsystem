@@ -1,5 +1,18 @@
 ﻿# winget-fast.ps1 — winget GitHub 加速安装脚本
 
+## winget source 换源（USTC 镜像）
+
+```powershell
+# 官方源: https://cdn.winget.microsoft.com/cache
+# 换为 USTC 镜像源
+winget source remove winget
+winget source add winget https://mirrors.ustc.edu.cn/winget-source
+```
+
+> 配置软件包的默认安装路径：执行 `winget settings` 自动打开配置文件，在其中加入安装路径相关配置。
+
+## winget-fast 脚本
+
 解决 winget 社区源中 **GitHub 系安装包下载慢** 的问题：拉取官方清单 → 将清单里的 `github.com` 下载地址拼接 `https://gh-proxy.com/` → 用修改后的本地清单执行 `winget install --manifest`。
 
 gh-proxy 是字节级透传反代，下载的安装包与原始地址**完全一致**，因此 winget 的 SHA256 校验照常通过（已实测验证）。
