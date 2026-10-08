@@ -1,4 +1,4 @@
-# winget-fast.ps1 — winget GitHub 加速安装脚本
+﻿# winget-fast.ps1 — winget GitHub 加速安装脚本
 
 解决 winget 社区源中 **GitHub 系安装包下载慢** 的问题：拉取官方清单 → 将清单里的 `github.com` 下载地址拼接 `https://gh-proxy.com/` → 用修改后的本地清单执行 `winget install --manifest`。
 
@@ -26,7 +26,7 @@ powershell -ExecutionPolicy Bypass -File .\winget-fast.ps1 -Id Neovim.Neovim -Ve
 远程一键执行：
 
 ```powershell
-iwr "https://gh-proxy.com/https://raw.githubusercontent.com/miaoxu1com/Installsystem/main/安装系统/镜像源设置/winget-fast.ps1" -OutFile winget-fast.ps1
+iwr "https://gh-proxy.com/https://raw.githubusercontent.com/miaoxu1com/Installsystem/main/安装系统/镜像源设置/winget/winget-fast.ps1" -OutFile winget-fast.ps1
 powershell -ExecutionPolicy Bypass -File .\winget-fast.ps1 -Id <包ID>
 ```
 
