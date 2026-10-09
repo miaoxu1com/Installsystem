@@ -46,4 +46,39 @@ git config --global --unset url.https://github.com/.insteadof
 
 ## 脚本
 
+### 配置类
+
 - [git_config.bat](git_config.bat)：一键配置 insteadOf 全局替换（谨慎，见上文注意事项）
+
+### 仓库管理工具（PowerShell）
+
+| 脚本 | 作用 | 依赖 |
+|---|---|---|
+| [github_sync_gitee.ps1](github_sync_gitee.ps1) | GitHub 仓库一键同步到 Gitee：代码全 ref + Wiki + Release 二进制附件 | **PowerShell 7+**、gh CLI（已登录）、git、**Gitee 私人令牌** |
+| [github_make_repo_public.ps1](github_make_repo_public.ps1) | 单个仓库私有转公开（GitHub / Gitee 双平台，默认需 yes 确认，`-Force` 跳过） | PowerShell 5.1+；GitHub 模式需 gh CLI，Gitee 模式需 Gitee 令牌 |
+| [github_batch_make_public.ps1](github_batch_make_public.ps1) | 按清单批量私有转公开（一次性批处理，逐仓库报成功/失败） | PowerShell 5.1+、gh CLI、清单文件 `%TEMP%\priv.json` |
+
+**依赖说明**：
+
+1. **gh CLI**：GitHub 官方命令行，`gh auth login` 登录一次即可。脚本自动探测 `D:\tools\gh\bin\gh.exe` 或 PATH 中的 gh。
+2. **Gitee 私人令牌**：[gitee.com](https://gitee.com) → 设置 → 私人令牌 → 生成（勾选 `projects` 权限）。用 `-GiteeToken` 传入或设环境变量 `$env:GITEE_TOKEN`。
+3. **PowerShell 7**：`github_sync_gitee.ps1` 用了 PS7 的 `Invoke-RestMethod -Form` 上传 release 附件，需 [pwsh](https://github.com/PowerShell/PowerShell)；其余两个脚本 PS 5.1 即可。
+4. **加速**：`github_sync_gitee.ps1` 克隆/推送默认走 `https://gh-proxy.com/` 前缀，可用 `-ProxyPrefix` 换自建反代或置空直连。
+
+**用法**：
+
+```powershell
+# ① 同步单个仓库到 Gitee（先 DryRun 看计划，免令牌）
+pwsh -File github_sync_gitee.ps1 -GitHubRepo owner/repo -GiteeOwner <gitee用户名> -DryRun
+pwsh -File github_sync_gitee.ps1 -GitHubRepo owner/repo -GiteeOwner <gitee用户名> -GiteeToken <令牌>
+
+# ② 单个仓库转公开
+pwsh -File github_make_repo_public.ps1 -Repo owner/repo            # GitHub
+pwsh -File github_make_repo_public.ps1 -Repo owner/repo -Platform gitee -GiteeToken <令牌>
+
+# ③ 批量转公开（先生成清单）
+gh repo list <用户名> --visibility private --limit 100 --json name,description,diskUsage,pushedAt > $env:TEMP\priv.json
+pwsh -File github_batch_make_public.ps1
+```
+
+**注意**：`github_batch_make_public.ps1` 会读取固定的 `$env:TEMP\priv.json` 清单文件并逐个翻转可见性，属于一次性批处理工具，运行前请人工核对清单内容；公开操作不可逆，注意历史中的敏感信息。
