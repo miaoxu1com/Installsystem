@@ -2,10 +2,7 @@
 
 ## rustup 清华镜像（环境变量）
 
-```powershell
-$env:RUSTUP_DIST_SERVER = "https://mirrors.tuna.tsinghua.edu.cn/rustup"
-$env:RUSTUP_UPDATE_ROOT = "https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup"
-```
+脚本已提取至: [设置rustup清华镜像环境变量.ps1](设置rustup清华镜像环境变量.ps1)
 
 ## 其他
 
@@ -20,3 +17,4 @@ $env:RUSTUP_UPDATE_ROOT = "https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup"
 
 - [rust.bat](rust.bat)：一键写入 RUSTUP/CARGO 环境变量 + 生成 ustc cargo config.toml
 - [uninstall_rust.bat](uninstall_rust.bat)：rustup self uninstall
+- [设置rustup清华镜像环境变量.ps1](设置rustup清华镜像环境变量.ps1)：当前会话临时设置 rustup 清华镜像

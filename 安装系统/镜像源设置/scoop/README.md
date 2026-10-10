@@ -6,9 +6,18 @@
 
 | 脚本 | 作用 | 使用场景 |
 |---|---|---|
+| [工作流-Scoop国内环境一键配置.ps1](工作流-Scoop国内环境一键配置.ps1) | 按依赖顺序编排下面所有步骤(`-All` 一键) | 新机器推荐 |
 | [Install-Scoop.ps1](Install-Scoop.ps1) | 通过 Gitee 镜像安装 Scoop 本体 | 新机器首次安装 |
 | [Add-ScoopBuckets.ps1](Add-ScoopBuckets.ps1) | 添加 Gitee 镜像 buckets（main/extras/versions/scoopcn） | 安装后必做 |
 | [Install-ScoopTools.ps1](Install-ScoopTools.ps1) | abgox scoop-tools 加速方案，GitHub 下载自动走代理 | 可选，推荐 |
+| [启用scoop命令补全-PSCompletions.ps1](启用scoop命令补全-PSCompletions.ps1) | $PROFILE 中启用 scoop 命令补全 | 可选 |
+| [配置scoop的HTTP代理.ps1](配置scoop的HTTP代理.ps1) | scoop HTTP 代理设置/删除 | 有代理时 |
+| [设置SCOOP_REPO镜像源.ps1](设置SCOOP_REPO镜像源.ps1) | SCOOP_REPO 备选镜像 | 可选 |
+| [配置url_proxy-仅Gitee修改版scoop.ps1](配置url_proxy-仅Gitee修改版scoop.ps1) | 自建 url_proxy | 仅 Gitee 修改版 |
+| [添加spc-bucket并切换main分支.ps1](添加spc-bucket并切换main分支.ps1) | spc bucket(约 1 万软件清单) | 可选 |
+| [添加apps-bucket更多软件清单.ps1](添加apps-bucket更多软件清单.ps1) | apps bucket | 可选 |
+| [配置argc-completions结合PSCompletions.ps1](配置argc-completions结合PSCompletions.ps1) | argc-completions 与 PSCompletions 结合 | 可选 |
+| [修复bucket仓库地址变更.ps1](修复bucket仓库地址变更.ps1) | bucket 上游地址变更后的迁移修复 | 出错时 |
 
 ## 方法一：Gitee 镜像安装 Scoop（推荐）
 
@@ -43,8 +52,7 @@ powershell -ExecutionPolicy Bypass -File .\Add-ScoopBuckets.ps1
 
 已存在的同名 bucket 会先移除再按新源添加，保证源地址正确。
 
-> 可选：如果想要更多软件清单（约 1 万个），还可以添加 spc bucket：
-> `scoop bucket add spc https://gitee.com/wlzwme/scoop-proxy-cn.git`
+> 可选：如果想要更多软件清单（约 1 万个），还可以添加 spc bucket，见 [添加spc-bucket并切换main分支.ps1](添加spc-bucket并切换main分支.ps1)。
 > 它是 [lzwme/scoop-proxy-cn](https://github.com/lzwme/scoop-proxy-cn) 的 Gitee 镜像。
 
 ## 方法三：abgox scoop-tools 加速（解决 GitHub 下载失败）
@@ -74,12 +82,7 @@ scoop-update <软件名>    # 替代 scoop update
 scoop-update *           # 更新全部
 ```
 
-启用命令补全需在 `$PROFILE` 中添加：
-
-```powershell
-Import-Module PSCompletions
-psc add scoop scoop-install scoop-update
-```
+启用命令补全需在 `$PROFILE` 中添加配置，见 [启用scoop命令补全-PSCompletions.ps1](启用scoop命令补全-PSCompletions.ps1)。
 
 ## 已失效/受限方案（存档）
 
@@ -91,13 +94,7 @@ psc add scoop scoop-install scoop-update
 
 ### HTTP 代理
 
-```powershell
-# 添加代理（根据实际填写 http 代理地址）
-scoop config proxy 127.0.0.1:4412
-
-# 删除代理
-scoop config rm proxy
-```
+脚本已提取至: [配置scoop的HTTP代理.ps1](配置scoop的HTTP代理.ps1)
 
 ### scoop config 配置文件位置
 
@@ -107,12 +104,7 @@ X:\Scoop\config\scoop    # 安装目录下的 config\scoop
 
 ### SCOOP_REPO 备选镜像
 
-```powershell
-# 除脚本默认的 gitee 镜像外，还有以下可选：
-scoop config SCOOP_REPO "https://gitee.com/scoop-installer/scoop"
-scoop config SCOOP_REPO "https://ghfast.top/github.com/ScoopInstaller/Scoop"
-scoop config SCOOP_REPO "https://ghproxy.net/https://github.com/ScoopInstaller/Scoop"
-```
+脚本已提取至: [设置SCOOP_REPO镜像源.ps1](设置SCOOP_REPO镜像源.ps1)
 
 > 注意：私有仓库无法通过镜像站下载 release（镜像只代理公开资源）。
 
@@ -122,13 +114,7 @@ scoop config SCOOP_REPO "https://ghproxy.net/https://github.com/ScoopInstaller/S
 
 > 注意：只有 [Gitee 修改版 scoop](https://gitee.com/scoop-installer-mirrors) 才支持 `url_proxy` 配置，archive 分支和原版 scoop 设置无效。
 
-```powershell
-# 添加代理
-scoop config URL_PROXY "https://scoop.201704.xyz"
-
-# 删除代理
-scoop config rm URL_PROXY
-```
+脚本已提取至: [配置url_proxy-仅Gitee修改版scoop.ps1](配置url_proxy-仅Gitee修改版scoop.ps1)
 
 可供设置的代理站：
 
@@ -137,71 +123,25 @@ scoop config rm URL_PROXY
 
 ### spc bucket 使用细节
 
-```powershell
-# 添加 spc bucket
-scoop bucket add spc https://gitee.com/wlzwme/scoop-proxy-cn.git
+脚本已提取至: [添加spc-bucket并切换main分支.ps1](添加spc-bucket并切换main分支.ps1)
 
-# 进入 spc 目录（默认安装路径；自定义安装目录时改成你的路径）
-cd "$env:USERPROFILE\scoop\buckets\spc"
-
-# 切换到 main 分支（该仓库默认分支不是 master，不切换会导致清单拉取异常）
-git fetch --all && git checkout -b main origin/main
-
-# 推荐安装基础工具
-scoop install spc/7zip spc/aria2 spc/scoop-search
-```
+注意：该仓库默认分支不是 master，不切换会导致清单拉取异常。
 
 ### PSCompletions 与 argc-completions 结合
 
 参考 [官方 FAQ](https://pscompletions.abgox.com/zh-CN/faq/pscompletions-and-argc-completions)。
 
-使用 scoop 安装 argc-completions 后在 `$PROFILE` 中：
-
-```powershell
-$argc_scripts = $env:ARGC_COMPLETIONS_PATH -split [System.IO.Path]::PathSeparator | Get-ChildItem -File | ForEach-Object { $_.BaseName }
-$PSCompletions.argc_completions($argc_scripts)
-```
-
-不使用 scoop 安装（手动版，多三行环境变量初始化）：
-
-```powershell
-# argc-completions
-$env:ARGC_COMPLETIONS_ROOT = 'D:\argc-completions'
-$env:ARGC_COMPLETIONS_PATH = ($env:ARGC_COMPLETIONS_ROOT + '\completions\windows;' + $env:ARGC_COMPLETIONS_ROOT + '\completions')
-$env:PATH = $env:ARGC_COMPLETIONS_ROOT + '\bin' + [IO.Path]::PathSeparator + $env:PATH
-# 只给指定命令加补全可修改下一行，如 $argc_scripts = @("cargo", "git")
-$argc_scripts = $env:ARGC_COMPLETIONS_PATH -split [System.IO.Path]::PathSeparator | Get-ChildItem -File | ForEach-Object { $_.BaseName }
-$PSCompletions.argc_completions($argc_scripts)
-```
-
-PSReadLine 和 PSCompletions 同时生效的 `$PROFILE` 配置：
-
-```powershell
-Set-PSReadLineOption -PredictionViewStyle ListView
-Import-Module PSCompletions
-$argc_scripts = $env:ARGC_COMPLETIONS_PATH -split [System.IO.Path]::PathSeparator | Get-ChildItem -File | ForEach-Object { $_.BaseName }
-argc --argc-completions powershell $argc_scripts | Out-String | Invoke-Expression
-```
+脚本已提取至: [配置argc-completions结合PSCompletions.ps1](配置argc-completions结合PSCompletions.ps1)(含 scoop 安装版、手动版、以及与 PSReadLine 同时生效的 $PROFILE 配置)
 
 ### bucket 仓库地址变更后的迁移修复
 
-当 bucket 上游仓库地址变化时，`scoop list` 和 `scoop install` 会报错，需要把已安装 app 记录的仓库地址替换为新地址：
+当 bucket 上游仓库地址变化时，`scoop list` 和 `scoop install` 会报错，需要把已安装 app 记录的仓库地址替换为新地址。
 
-```powershell
-# 1. 修改 bucket 仓库的 remote 地址（目录必须是 .git 仓库）
-git -C "E:\Tools\Scoop\buckets\main" remote set-url origin https://github.com.cnpmjs.org/ScoopInstaller/Main.git
-git -C "E:\Tools\Scoop\buckets\extras" remote set-url origin https://github.com.cnpmjs.org/lukesampson/scoop-extras.git
-
-# 2. PowerShell 批量替换已安装应用的 bucket 归属（示例：main -> spc）
-Get-ChildItem -Path "D:\Scoop\apps" -Recurse -Filter "install.json" | ForEach-Object { try { $jsonContent = Get-Content $_.FullName -Raw | ConvertFrom-Json; if ($jsonContent.bucket -eq "main") { $jsonContent.bucket = "spc"; $jsonContent | ConvertTo-Json -Depth 10 | Set-Content $_.FullName -NoNewline; Write-Host "✓ 已更新: $($_.FullName)" -ForegroundColor Green } } catch { Write-Host "✗ JSON 解析失败: $($_.FullName) - $($_.Exception.Message)" -ForegroundColor Red } }
-```
+脚本已提取至: [修复bucket仓库地址变更.ps1](修复bucket仓库地址变更.ps1)
 
 ### apps bucket（更多软件清单）
 
-```powershell
-scoop bucket rm apps
-scoop bucket add apps https://gitee.com/kkzzhizhou/scoop-apps
-```
+脚本已提取至: [添加apps-bucket更多软件清单.ps1](添加apps-bucket更多软件清单.ps1)
 
 ## 参考链接
 

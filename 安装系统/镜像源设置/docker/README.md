@@ -2,12 +2,9 @@
 
 ## 安装 Docker（中科大镜像）
 
-参考 [USTC Docker CE 帮助](https://mirrors.ustc.edu.cn/help/docker-ce.html)，一起复制下面两行命令：
+参考 [USTC Docker CE 帮助](https://mirrors.ustc.edu.cn/help/docker-ce.html)。
 
-```bash
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo DOWNLOAD_URL=https://mirrors.ustc.edu.cn/docker-ce sh get-docker.sh
-```
+脚本已提取至: [安装Docker-中科大镜像.sh](安装Docker-中科大镜像.sh)
 
 ## 替换 Docker Hub 镜像
 
@@ -16,11 +13,7 @@ sudo DOWNLOAD_URL=https://mirrors.ustc.edu.cn/docker-ce sh get-docker.sh
 - [docker.xuanyuan.me](https://docker.xuanyuan.me/)
 - [DockerHub 镜像汇总](https://fcp7.com/docker-dockerhub-mirrors.html)
 
-测试镜像是否可用：
-
-```bash
-docker pull hub-mirror.c.163.com/library/nginx:latest
-```
+测试镜像是否可用: [测试Docker镜像站是否可用.sh](测试Docker镜像站是否可用.sh)
 
 临时配置（通过 `--registry-mirror` 指定镜像源地址）：
 

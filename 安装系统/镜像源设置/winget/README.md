@@ -2,12 +2,7 @@
 
 ## winget source 换源（USTC 镜像）
 
-```powershell
-# 官方源: https://cdn.winget.microsoft.com/cache
-# 换为 USTC 镜像源
-winget source remove winget
-winget source add winget https://mirrors.ustc.edu.cn/winget-source
-```
+脚本已提取至: [winget源换为USTC镜像.ps1](winget源换为USTC镜像.ps1)(官方源: `https://cdn.winget.microsoft.com/cache`)
 
 > 配置软件包的默认安装路径：执行 `winget settings` 自动打开配置文件，在其中加入安装路径相关配置。
 
@@ -18,6 +13,14 @@ winget source add winget https://mirrors.ustc.edu.cn/winget-source
 gh-proxy 是字节级透传反代，下载的安装包与原始地址**完全一致**，因此 winget 的 SHA256 校验照常通过（已实测验证）。
 
 ## 用法
+
+推荐使用工作流脚本(自动完成前置条件 + 可选换源 + 加速安装): [工作流-winget加速安装.ps1](工作流-winget加速安装.ps1)
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\工作流-winget加速安装.ps1 -Id GitHub.cli -SwitchSource
+```
+
+单独使用 winget-fast:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\winget-fast.ps1 -Id <包ID>
@@ -36,20 +39,11 @@ powershell -ExecutionPolicy Bypass -File .\winget-fast.ps1 -Id Neovim.Neovim -Ve
 | `-ProxyPrefix` | `https://gh-proxy.com/` | 可换成自建或其他反代前缀 |
 | `-WorkDir` | `%TEMP%\winget-fast` | 清单下载目录 |
 
-远程一键执行：
-
-```powershell
-iwr "https://gh-proxy.com/https://raw.githubusercontent.com/miaoxu1com/Installsystem/main/安装系统/镜像源设置/winget/winget-fast.ps1" -OutFile winget-fast.ps1
-powershell -ExecutionPolicy Bypass -File .\winget-fast.ps1 -Id <包ID>
-```
+远程一键执行，见 [远程下载并执行winget-fast.ps1](远程下载并执行winget-fast.ps1)。
 
 ## 前置条件（一次性）
 
-1. **开启本地清单安装**（需管理员，仅需一次）：
-
-   ```powershell
-   winget settings --enable LocalManifestFiles
-   ```
+1. **开启本地清单安装**（需管理员，仅需一次），见 [启用winget本地清单安装.ps1](启用winget本地清单安装.ps1)。
 
 2. 若 `winget` 命令无响应/exit 255（应用执行别名损坏）：
    - 脚本已内置自动回退到真实路径，无需处理；

@@ -1,22 +1,12 @@
 # Go 代理（GOPROXY）
 
-```bash
-# Bash (Linux or macOS)
-export GOPROXY=https://goproxy.io,direct
-# 不走 proxy 的私有仓库或组，多个用逗号相隔（可选）
-export GOPRIVATE=git.mycompany.com,github.com/my/private
-```
+脚本已提取至:
 
-```powershell
-# PowerShell (Windows)
-$env:GOPROXY = "https://goproxy.io,direct"
-$env:GOPRIVATE = "git.mycompany.com,github.com/my/private"
-```
+- [设置GOPROXY代理.sh](设置GOPROXY代理.sh)：Bash (Linux or macOS)
+- [设置GOPROXY代理.ps1](设置GOPROXY代理.ps1)：PowerShell (Windows)
+
+`GOPRIVATE` 用于配置不走 proxy 的私有仓库或组，多个用逗号相隔（可选）。
 
 ## Arch 安装 AUR 助手 yay 时走 GOPROXY
 
-```bash
-git clone https://aur.archlinux.org/yay
-cd yay
-GOPROXY=https://goproxy.cn makepkg -si
-```
+脚本已提取至: [Arch安装yay走GOPROXY代理.sh](Arch安装yay走GOPROXY代理.sh)

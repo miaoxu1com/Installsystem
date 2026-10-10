@@ -2,10 +2,7 @@
 
 ## 替换为中科大镜像
 
-```bash
-# sudo add-apt-repository --remove "deb http://archive.ubuntu.com/ubuntu jammy InRelease"
-sudo add-apt-repository "deb http://mirrors.ustc.edu.cn/ubuntu jammy main"
-```
+脚本已提取至: [替换apt源为中科大镜像.sh](替换apt源为中科大镜像.sh)(示例版本代号 jammy，其他版本替换代号即可)
 
 ## 相关
 

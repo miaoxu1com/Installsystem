@@ -2,22 +2,13 @@
 
 ## npm（.npmrc，用户级 `C:\Users\<用户>\.npmrc`）
 
-```ini
-prefix=E:\Develop\Node\global_modules\
-cache=E:\Develop\Node\npm_cache\
-registry=https://registry.npmmirror.com
-```
+配置模板已提取至: [npmrc模板-淘宝镜像与自定义目录.ini](npmrc模板-淘宝镜像与自定义目录.ini)
 
 `registry` 设置为 npmmirror（淘宝镜像）加速下载；`prefix`/`cache` 自定义全局安装与缓存路径，按需修改盘符。
 
 ## pnpm（rc 配置）
 
-```ini
-store-dir=E:\Develop\Node\pnpm-store\store\
-cache-dir=E:\Develop\Node\pnpm-store\cache\
-state-dir=E:\Develop\Node\pnpm-store\state\
-global-dir=E:\Develop\Node\pnpm-store\global\
-```
+配置模板已提取至: [pnpmrc模板-store与缓存目录.ini](pnpmrc模板-store与缓存目录.ini)
 
 ## 相关
 

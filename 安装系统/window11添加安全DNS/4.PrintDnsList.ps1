@@ -1,2 +1,0 @@
-﻿Set-ExecutionPolicy Unrestricted
-Get-DnsClientDohServerAddress

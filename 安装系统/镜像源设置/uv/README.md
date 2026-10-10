@@ -1,15 +1,6 @@
 # uv 镜像设置
 
-```powershell
-# Python Standalone 构建下载镜像
-$env:UV_PYTHON_INSTALL_MIRROR = "https://gh.xmly.dev/https://github.com/astral-sh/python-build-standalone/releases/download"
-```
-
-备选镜像：
-
-```powershell
-$env:UV_PYTHON_INSTALL_MIRROR = "https://mirror.ghproxy.com/https://github.com/indygreg/python-build-standalone/releases/download"
-```
+脚本已提取至: [设置uv的Python下载镜像.ps1](设置uv的Python下载镜像.ps1)(含主镜像与备选镜像)
 
 ## 参考
 
@@ -24,3 +15,4 @@ $env:UV_PYTHON_INSTALL_MIRROR = "https://mirror.ghproxy.com/https://github.com/i
 ## 脚本
 
 - [python_uv_mirror.bat](python_uv_mirror.bat)：一键写入 UV_PYTHON_INSTALL_MIRROR / UV_DEFAULT_INDEX（USTC）等环境变量
+- [设置uv的Python下载镜像.ps1](设置uv的Python下载镜像.ps1)：当前会话临时设置 Python 下载镜像
